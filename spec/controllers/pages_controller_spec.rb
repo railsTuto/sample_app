@@ -3,6 +3,10 @@ require 'spec_helper'
 describe PagesController do
 render_views
 
+  before(:each) do
+    @base_title = "Sample App for Rails Tuto"
+  end
+
   describe "GET 'home'" do
     it "returns http success" do
       get 'home'
@@ -11,7 +15,7 @@ render_views
     
     it "should have good title" do
       get 'home'
-      response.should have_selector("title", :content => "Sample App for Rails Tuto | Home")
+      response.should have_selector("title", :content => @base_title + " | Home")
     end
   end
 
@@ -23,7 +27,7 @@ render_views
 
     it "should have good title" do
       get 'contact'
-      response.should have_selector("title", :content => "Sample App for Rails Tuto | Contact")
+      response.should have_selector("title", :content => @base_title + " | Contact")
     end
   end
 
@@ -35,9 +39,20 @@ render_views
 
     it "should have good title" do
       get 'about'
-      response.should have_selector("title", :content => "Sample App for Rails Tuto | About")
+      response.should have_selector("title", :content => @base_title + " | About")
+    end
+  end
+
+  describe "GET 'help'" do
+    it "return http success" do
+      get 'help'
+      response.should be_success
     end
 
+    it "should have good tilte" do
+      get 'help'
+      response.should have_selector("title", :content => @base_title + " | Help")
+    end
   end
 
 end
